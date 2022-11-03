@@ -12,7 +12,7 @@ export const useAuthStore = () => {
         try {
             const { data } = await serviceMaruplas.post('/auth', { email, password });
             localStorage.setItem('token', data.token);
-            localStorage.setItem('token', new Date().getTime());
+            localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'));
@@ -30,12 +30,17 @@ export const useAuthStore = () => {
         try {
             const { data } = await serviceMaruplas.get('auth/renew')
             localStorage.setItem('token', data.token);
-            localStorage.setItem('token', new Date().getTime());
+            localStorage.setItem('token-init-date', new Date().getTime());
             dispatch(onLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
             localStorage.clear();
             dispatch(onLogout());
         }
+    }
+
+    const startLogout = () => {
+        localStorage.clear();
+        dispatch(onLogout());
     }
 
     //Propiedades
@@ -46,7 +51,8 @@ export const useAuthStore = () => {
 
         //metodos
         startLogin,
-        checkAuthToken
+        checkAuthToken,
+        startLogout
     }
 
 }

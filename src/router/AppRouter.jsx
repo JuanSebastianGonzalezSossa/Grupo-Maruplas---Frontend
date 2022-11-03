@@ -4,8 +4,7 @@ import { AuthRoutes } from '../auth/router/AuthRoutes';
 
 import { MaruplasRoutes } from '../grupoMaruplas/routes/MaruplasRoutes';
 import { useAuthStore } from '../hooks/useAuthStore';
-//import { CheckingAuth } from '../ui/';
-// import { useCheckAuth } from '../hooks';
+import { CheckingAuth } from '../ui';
 
 
 export const AppRouter = () => {
@@ -18,7 +17,7 @@ export const AppRouter = () => {
 
     if (status === 'checking') {
         return (
-            <h3>cargando...</h3>
+            <CheckingAuth/>
         )
     }
 
@@ -26,11 +25,20 @@ export const AppRouter = () => {
         <Routes>
             {
                 (status === 'not-authenticated')
-                    ? <Route path="/auth/*" element={<AuthRoutes />} />
-                    : <Route path="/*" element={<MaruplasRoutes />} />
-            }
+                    ? (
+                        <>
+                            <Route path="/auth/*" element={<AuthRoutes />} />
+                            <Route path='/*' element={<Navigate to='/auth/login' />} />
+                        </>
 
-            { <Route path='/*' element={<Navigate to='/auth/login' />} /> }
+                    )
+                    : (
+                        <>
+                            <Route path="/*" element={<MaruplasRoutes />} />
+                            <Route path="/*" element={ <Navigate to="/" /> } />
+                        </>
+                    )
+            }
 
         </Routes>
     )

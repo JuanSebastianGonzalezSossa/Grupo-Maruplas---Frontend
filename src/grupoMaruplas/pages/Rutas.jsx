@@ -2,7 +2,7 @@ import { Grid} from '@mui/material'
 import React from 'react'
 import {ResponsiveDrawer} from '../components/sidebar'
 
-export const MaruplasPage = () => {
+export const Rutas = () => {
     return (
         <Grid
             className='animate__animated animate__fadeIn animate__faster'
@@ -14,7 +14,7 @@ export const MaruplasPage = () => {
             sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
         >
             <ResponsiveDrawer/>
-            Home
+            Rutas
         </Grid>
     )
 }
