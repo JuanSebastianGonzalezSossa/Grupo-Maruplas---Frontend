@@ -1,7 +1,21 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { AppBar, Box, CssBaseline, Divider, Drawer, Grid, IconButton, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
@@ -13,192 +27,199 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import { LogoutOutlined } from '@mui/icons-material';
 import { useAuthStore } from '../../hooks/useAuthStore';
 import { Link as RouterLink } from 'react-router-dom';
+import { Grid, Link } from '@mui/material';
 
 const drawerWidth = 240;
 
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  }),
+);
 
-export const ResponsiveDrawer = ({ window }) => {
-    const [mobileOpen, setMobileOpen] = useState(false);
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
 
-    const drawer = (
-        <Grid
-            container
-            direction="column"
-            textAlign="center"
-        >
-            <Toolbar />
-            <Divider />
-            <List>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Asesores">
-                    <ListItem key={'Asesores'} disablePadding>
-                        <ListItemButton >
-                            <ListItemIcon>
-                                <SupportAgentIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Asesores'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Rutas">
-                    <ListItem key={'Rutas'} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <LocalShippingIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Rutas'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Clientes">
-                    <ListItem key={'Clientes'} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <PersonIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Clientes'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Productos">
-                    <ListItem key={'Productos'} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <InventoryIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Productos'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Pedidos">
-                    <ListItem key={'Pedidos'} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <ViewListIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Pedidos'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Viaticos">
-                    <ListItem key={'Viaticos'} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <PaymentsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Viaticos'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-            </List>
-            <Divider />
-            <List>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReportePedidos">
-                    <ListItem key={'Reporte pedidos'} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <AssignmentIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Reporte pedidos'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-                <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReporteViaticos">
-                    <ListItem key={'Reporte viaticos'} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <AssessmentIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Reporte viaticos'} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
-            </List>
-        </Grid >
-    );
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
 
-    const container = window !== undefined ? () => window().document.body : undefined;
+export const ResponsiveDrawer = () => {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const { user, startLogout } = useAuthStore();
 
-    const { user, startLogout } = useAuthStore();
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
-    return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
-                }}
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <Grid container direction='row' justifyContent='space-between' alignItems='center' >
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}
             >
-                <Toolbar>
-
-                    <Grid container direction='row' justifyContent='space-between' alignItems='center' >
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="start"
-                            onClick={handleDrawerToggle}
-                            sx={{ mr: 2, display: { sm: 'none' } }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" noWrap component="div">
-                            {user.name}
-                        </Typography>
-                        <IconButton color='error' onClick={startLogout}>
-                            <LogoutOutlined />
-                        </IconButton>
-                    </Grid>
-                </Toolbar>
-
-            </AppBar>
-            <Box
-                component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-                aria-label="mailbox folders"
-            >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                    sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
-                <Drawer
-                    variant="permanent"
-                    sx={{
-                        display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                    open
-                >
-                    {drawer}
-                </Drawer>
-            </Box>
-        </Box>
-    );
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              {user.name}
+            </Typography>
+            <IconButton color='error' onClick={startLogout}>
+              <LogoutOutlined />
+            </IconButton>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Asesores">
+            <ListItem key={'Asesores'} disablePadding>
+              <ListItemButton >
+                <ListItemIcon>
+                  <SupportAgentIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Asesores'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Rutas">
+            <ListItem key={'Rutas'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <LocalShippingIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Rutas'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Clientes">
+            <ListItem key={'Clientes'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Clientes'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Productos">
+            <ListItem key={'Productos'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InventoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Productos'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Pedidos">
+            <ListItem key={'Pedidos'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ViewListIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Pedidos'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Viaticos">
+            <ListItem key={'Viaticos'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PaymentsIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Viaticos'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </List>
+        <Divider />
+        <List>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReportePedidos">
+            <ListItem key={'Reporte pedidos'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Reporte pedidos'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReporteViaticos">
+            <ListItem key={'Reporte viaticos'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AssessmentIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Reporte viaticos'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+      </Main>
+    </Box>
+  );
 }
-
-ResponsiveDrawer.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
-};
-
-export default ResponsiveDrawer;

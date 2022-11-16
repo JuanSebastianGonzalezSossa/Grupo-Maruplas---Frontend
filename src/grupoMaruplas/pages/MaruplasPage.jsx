@@ -1,8 +1,12 @@
-import { Grid} from '@mui/material'
-import React from 'react'
-import {ResponsiveDrawer} from '../components/sidebar'
+import { Grid } from '@mui/material'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { useServices } from '../../hooks/UseServices';
+import { ResponsiveDrawer } from '../components/sidebar'
 
 export const MaruplasPage = () => {
+
+
     return (
         <Grid
             className='animate__animated animate__fadeIn animate__faster'
@@ -13,7 +17,7 @@ export const MaruplasPage = () => {
             justifyContent="center"
             sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
         >
-            <ResponsiveDrawer/>
+            <ResponsiveDrawer />
             Home
         </Grid>
     )

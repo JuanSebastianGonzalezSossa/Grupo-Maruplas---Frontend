@@ -3,6 +3,7 @@ import { AppRouter } from './router/AppRouter';
 import { AppTheme } from './theme';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './store';
+import './app.css'
 
 export const App = () => {
 

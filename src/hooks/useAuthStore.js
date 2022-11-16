@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { serviceMaruplas } from "../Apis";
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/authSlice";
+import { onOpenSuccess, onCloseSuccess } from "../store/ui/uiSlice";
 
 export const useAuthStore = () => {
 
@@ -18,6 +19,23 @@ export const useAuthStore = () => {
             dispatch(onLogout('Credenciales incorrectas'));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
+            }, 10);
+        }
+    }
+
+    const startRegister = async ({ name, rol, email, password }) => {
+
+        try {
+            const { data } = await serviceMaruplas.post('/auth/new', { name, rol, email, password });
+            console.log(data)
+            if (data.ok) {
+                dispatch(onOpenSuccess('¡Se ha registrado con Asesor con exito!'))
+            } else { dispatch(onOpenSuccess('¡Fallo el registro!')) }
+            
+        } catch (error) {
+            setTimeout(() => {
+                console.log("Error :", error)
+                dispatch(onCloseSuccess())
             }, 10);
         }
     }
@@ -52,7 +70,9 @@ export const useAuthStore = () => {
         //metodos
         startLogin,
         checkAuthToken,
-        startLogout
+        startLogout,
+        startRegister
+
     }
 
 }

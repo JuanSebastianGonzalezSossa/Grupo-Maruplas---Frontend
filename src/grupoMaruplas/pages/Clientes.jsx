@@ -1,8 +1,9 @@
-import { Grid} from '@mui/material'
+import { Grid } from '@mui/material'
 import React from 'react'
-import {ResponsiveDrawer} from '../components/sidebar'
+import { ResponsiveDrawer } from '../components/sidebar'
 
 export const Clientes = () => {
+
     return (
         <Grid
             className='animate__animated animate__fadeIn animate__faster'
@@ -13,7 +14,7 @@ export const Clientes = () => {
             justifyContent="center"
             sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
         >
-            <ResponsiveDrawer/>
+            <ResponsiveDrawer />
             Clientes
         </Grid>
     )

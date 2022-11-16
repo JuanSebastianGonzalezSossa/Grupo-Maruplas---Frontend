@@ -1,13 +1,13 @@
 
 
- export const PeticionPost = async(url, data) => {
+ export const PeticionPost = async(url) => {
 
     const resp = await fetch(url, {
-        method: "POST",
+        method: "Get",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        //body: JSON.stringify(data)
     });
 
     const Respuesta = await resp.json();
