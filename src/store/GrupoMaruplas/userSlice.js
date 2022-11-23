@@ -11,6 +11,10 @@ export const userSlice = createSlice({
             state.users = payload,
             state.state = 'Trayendo Datos';
         },
+        onAddNewUser: ( state, { payload }) => {
+            state.users.push( payload );
+            state.state = true;
+        },
         clearStateMessage: ( state ) => {
             state.state = undefined;
         }
@@ -19,4 +23,4 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onUser, clearStateMessage } = userSlice.actions;
+export const { onUser, onAddNewUser, clearStateMessage } = userSlice.actions;

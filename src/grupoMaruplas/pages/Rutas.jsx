@@ -3,7 +3,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import React from 'react'
 import { useUiStore } from '../../hooks/useUiStore';
 import { ResponsiveDrawer } from '../components/sidebar'
-import { ModalRegistrarAsesor } from '../views/ModalRegistrarAsesor';
+import { ModalEditarRuta, ModalCrearRuta } from '../views/';
 import { useEffect } from 'react';
 import { useUsers } from '../../hooks/useUsers';
 import { useDispatch, useSelector } from "react-redux"
@@ -17,12 +17,13 @@ import { useServices } from '../../hooks/UseServices';
 import { columnas } from '../data/columnsRutas';
 import { FaceRetouchingNaturalSharp } from '@mui/icons-material';
 
-export const Rutas = () => {
+const api = "rutas";
 
+export const Rutas = () => {
 
     const dispatch = useDispatch();
 
-    const { openDateModal } = useUiStore();
+    const { openDateModal} = useUiStore();
 
     const { getRutas } = useServices();
 
@@ -48,7 +49,7 @@ export const Rutas = () => {
             <ResponsiveDrawer />
 
                 {Object.keys(rutas).length === 0 ? <NothingSelectedView />
-                    : <TableComponent columnas={columnas} filas={rutas} />}
+                    : <TableComponent columnas={columnas} filas={rutas} api={api}/>}
                 
             <IconButton
                 size='large'
@@ -65,6 +66,9 @@ export const Rutas = () => {
                 <AddOutlinedIcon sx={{ fontSize: 30 }} />
 
             </IconButton>
+
+            <ModalEditarRuta/>
+            <ModalCrearRuta/>
         </Grid>
     )
 }

@@ -132,20 +132,33 @@ export const ResponsiveDrawer = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Asesores">
+          <Link component={RouterLink} style={{ textDecoration: 'none', fontWeight: 'bold', fontSize: 15 }} variant='h6' color='inherit' to="/Asesores">
             <ListItem key={'Asesores'} disablePadding>
-              <ListItemButton >
-                <ListItemIcon>
+              <ListItemButton 
+                sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <SupportAgentIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Asesores'} />
+                <ListItemText primary={'Asesores'}/>
               </ListItemButton>
             </ListItem>
           </Link>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Rutas">
             <ListItem key={'Rutas'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItemButton sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <LocalShippingIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Rutas'} />
@@ -154,8 +167,14 @@ export const ResponsiveDrawer = () => {
           </Link>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Clientes">
             <ListItem key={'Clientes'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItemButton sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <PersonIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Clientes'} />
@@ -164,8 +183,14 @@ export const ResponsiveDrawer = () => {
           </Link>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Productos">
             <ListItem key={'Productos'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItemButton sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <InventoryIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Productos'} />
@@ -174,8 +199,14 @@ export const ResponsiveDrawer = () => {
           </Link>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Pedidos">
             <ListItem key={'Pedidos'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItemButton sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <ViewListIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Pedidos'} />
@@ -184,8 +215,14 @@ export const ResponsiveDrawer = () => {
           </Link>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Viaticos">
             <ListItem key={'Viaticos'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItemButton sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <PaymentsIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Viaticos'} />
@@ -197,8 +234,14 @@ export const ResponsiveDrawer = () => {
         <List>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReportePedidos">
             <ListItem key={'Reporte pedidos'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItemButton sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <AssignmentIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Reporte pedidos'} />
@@ -207,8 +250,14 @@ export const ResponsiveDrawer = () => {
           </Link>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReporteViaticos">
             <ListItem key={'Reporte viaticos'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
+              <ListItemButton sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
+                <ListItemIcon sx={{
+                  color: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+                }}>
                   <AssessmentIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Reporte viaticos'} />

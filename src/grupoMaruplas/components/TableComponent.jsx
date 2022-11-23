@@ -2,26 +2,47 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTable, useFilters } from 'react-table';
+import Swal from 'sweetalert2';
+import { useServices } from '../../hooks/UseServices';
+import { useUiStore } from '../../hooks/useUiStore';
 import '../styles/Table.css'
 
-export const TableComponent = ({ columnas, filas }) => {
+export const TableComponent = ({ columnas, filas, api }) => {
 
     const columns = useMemo(() => columnas, []);
     const data = useMemo(() => filas, [])
+
+    const { OpenSuccess, updateNow } = useUiStore();
+
+    const { startDeletingRuta } = useServices();
 
     const { getTableProps, getTableBodyProps, rows, headerGroups, prepareRow, state } = useTable({
         columns,
         data
     }, useFilters)
 
-
-    const AbrirEditar = (id) => {
-        console.log(id)
+    const AbrirEditar = (actual) => {
+        updateNow(actual)
+        OpenSuccess()
     }
 
-    const AbrirDelete = (id) => {
-        console.log(id)
+    const AbrirDelete = (actual) => {
+        updateNow(actual)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                    startDeletingRuta(actual,api);
+            }
+        })
     }
+
 
     return (
         <TableContainer className='container' component={Paper}>
@@ -30,8 +51,8 @@ export const TableComponent = ({ columnas, filas }) => {
                     {headerGroups.map((headerGroup) => (
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
-                                <TableCell sx={{ fontWeight: 'bold', fontFamily: '', fontSize: 15, color: 'primary.blanco' }}  
-                                {...column.getHeaderProps()}>{column.render('Header')}
+                                <TableCell sx={{ fontWeight: 'bold', fontSize: 15, color: 'primary.blanco' }}
+                                    {...column.getHeaderProps()}>{column.render('Header')}
                                     <Grid>{column.canFilter ? "" : null}</Grid></TableCell>
 
                             ))
@@ -54,12 +75,12 @@ export const TableComponent = ({ columnas, filas }) => {
                                     color: 'secondary.main',
                                     backgroundColor: 'white',
                                     ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                }} onClick={() => AbrirEditar(row.original.id)}><Edit sx={{ fontSize: 22 }}></Edit></IconButton>
+                                }} onClick={() => AbrirEditar(row.original)}><Edit sx={{ fontSize: 22 }}></Edit></IconButton>
                                     <IconButton sx={{
                                         color: 'error.main',
                                         backgroundColor: 'white',
                                         ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                    }} onClick={() => AbrirDelete(row.original.id)}><Delete></Delete></IconButton></TableCell>
+                                    }} onClick={() => AbrirDelete(row.original)}><Delete></Delete></IconButton></TableCell>
                             </TableRow>
                         )
                     })}

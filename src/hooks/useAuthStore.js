@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
+import Swal from "sweetalert2";
 import { serviceMaruplas } from "../Apis";
+import { onAddNewUser } from "../store";
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/authSlice";
 import { onOpenSuccess, onCloseSuccess } from "../store/ui/uiSlice";
 
@@ -23,20 +25,17 @@ export const useAuthStore = () => {
         }
     }
 
-    const startRegister = async ({ name, rol, email, password }) => {
+    const startRegister = async (values) => {
 
         try {
-            const { data } = await serviceMaruplas.post('/auth/new', { name, rol, email, password });
-            console.log(data)
-            if (data.ok) {
+            const { data } = await serviceMaruplas.post('/auth/new', values );
+            dispatch(onAddNewUser({...values, id: values.id, user }));
+            if(data.ok){
                 dispatch(onOpenSuccess('¡Se ha registrado con Asesor con exito!'))
-            } else { dispatch(onOpenSuccess('¡Fallo el registro!')) }
-            
+            }
         } catch (error) {
-            setTimeout(() => {
-                console.log("Error :", error)
-                dispatch(onCloseSuccess())
-            }, 10);
+            console.log(error)
+            Swal.fire('Error al guardar', error.response.data.msg, 'error');
         }
     }
 

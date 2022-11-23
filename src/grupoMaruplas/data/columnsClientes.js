@@ -1,29 +1,39 @@
-export const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+import { ColumnFilter } from "./columFilter";
+
+export const columnas = [
     {
-        field: 'nombre',
-        headerName: 'Nombre',
-        width: 160, description: 'Esta columna muestra los nombres de la ruta.'
+        Header: 'Id',
+        accessor: 'id',
+        Filter: ColumnFilter
     },
     {
-        field: 'ciudad',
-        headerName: 'Ciudad',
-        width: 160, description: 'Esta columna muestra la ciudad de la ruta.'
+        Header: 'Nombres',
+        accessor: 'nombres',
+        Filter: ColumnFilter
     },
     {
-        field: 'descripcion',
-        headerName: 'Descripción',
-        width: 150, description: 'Esta columna muestra una breve descripcin de la ruta.'
+        Header: 'Apellidos',
+        accessor: 'apellidos',
+        Filter: ColumnFilter
     },
     {
-        field: 'asesor',
-        headerName: 'Asesor',
-        width: 150, description: 'Esta columna muestra el asesor asociado a esa ruta.'
+        Header: 'Empresa',
+        accessor: 'empresa',
+        Filter: ColumnFilter
     },
     {
-        field: 'actions', headerName: 'Actions',
-        width: 130,
-        description: 'En esta columna puede editar o eliminar el cliente.',
-        sortable: false,
+        Header: 'Celular',
+        accessor: 'celular',
+        Filter: ColumnFilter
     },
+    {
+        Header: 'Correo',
+        accessor: 'correo',
+        Filter: ColumnFilter
+    },
+    {
+        Header: 'Asesor',
+        accessor: 'user.name',
+        Filter: ColumnFilter
+    }
 ];

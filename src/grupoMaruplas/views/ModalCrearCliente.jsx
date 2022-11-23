@@ -4,38 +4,36 @@ import Modal from 'react-modal';
 import '../styles/stylesModal.css'
 import { Cancel, Save } from '@mui/icons-material';
 import { useUiStore } from '../../hooks/useUiStore';
-import { useAuthStore } from '../../hooks/useAuthStore';
 import { useFormik } from 'formik'
-import { RegisterValidacions } from '../schemas/RegisterValidacion';
+import { ClienteValidacions } from '../schemas';
+import { useServices } from '../../hooks/UseServices';
 
 Modal.setAppElement('#root');
 
-export const ModalRegistrarAsesor = () => {
+export const ModalCrearCliente = () => {
 
-    const { isDateModalOpen, closeDateModal} = useUiStore();
+    const { isDateModalOpen, closeDateModal } = useUiStore();
 
-    const { startRegister } = useAuthStore();
+    const { savingClientes } = useServices();
 
     const onSubmit = (values, actions) => {
-        startRegister(values)
+        savingClientes(values)
         actions.resetForm();
         closeDateModal();
     }
-    
-   
 
     const { values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, resetForm } = useFormik({
         initialValues: {
-            name: '',
-            rol: '',
+            nombres: '',
+            apellidos: '',
+            empresa: '',
             celular: '',
-            email: '',
-            password: ''
+            correo: '',
         },
-        validationSchema: RegisterValidacions,
+        validationSchema: ClienteValidacions,
         onSubmit
-
     });
+
 
     const onCloseModal = () => {
         resetForm()
@@ -47,50 +45,63 @@ export const ModalRegistrarAsesor = () => {
         <Modal
             isOpen={isDateModalOpen}
             onRequestClose={onCloseModal}
-            className="modal"
+            className="modalCliente"
             overlayClassName="modal-fondo"
             closeTimeoutMS={200}
         >
-            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Registrar Asesor </Typography>
+            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Clientes Ruta </Typography>
             <hr />
             <form onSubmit={handleSubmit} autoComplete='off' className='animate__animated animate__fadeIn animate__faster'>
                 <Grid container direction='column' justifyContent='center'>
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
-                            <TextField
-                                id='name'
-                                name='name'
-                                label="Nombre *"
+                        <TextField
+                                id='nombres'
+                                name='nombres'
+                                label="Nombres *"
                                 type="text"
                                 placeholder='Susana Restrepo'
                                 fullWidth
-                                value={values.name}
+                                value={values.nombres}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                error={errors.name && touched.name ? true : false}
-                                helperText={errors.name && touched.name ? errors.name : ""}
+                                error={errors.nombres && touched.nombres ? true : false}
+                                helperText={errors.nombres && touched.nombres ? errors.nombres : ""}
                             />
                         </Grid>
                     </Grid>
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
-                            <FormControl required sx={{ m: 1, minWidth: 120 }}>
-                                <InputLabel id="demo-simple-select-label">Rol</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    name='rol'
-                                    value={values.rol}
-                                    label="Rol *"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={errors.rol && touched.rol ? true : false}
-                                    helperText={errors.rol && touched.rol ? errors.rol : ""}
-                                >
-                                    <MenuItem value="Administrador">Administrador</MenuItem>
-                                    <MenuItem value={'Asesor'}>Asesor</MenuItem>
-                                </Select>
-                            </FormControl>
+                        <TextField
+                                id='apellidos'
+                                nombre='apellidos'
+                                label="Apellidos *"
+                                type="text"
+                                placeholder='Medellín'
+                                fullWidth
+                                value={values.apellidos}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={errors.apellidos && touched.apellidos ? true : false}
+                                helperText={errors.apellidos && touched.apellidos ? errors.apellidos : ""}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid >
+                        <Grid style={{ width: '100%', padding: '5px' }}>
+                            <TextField
+                                id='empresa'
+                                nombre='empresa'
+                                label="Empresa *"
+                                type="text"
+                                placeholder='Medellín'
+                                fullWidth
+                                value={values.empresa}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={errors.empresa && touched.empresa ? true : false}
+                                helperText={errors.empresa && touched.empresa ? errors.empresa : ""}
+                            />
                         </Grid>
                     </Grid>
                     <Grid >
@@ -113,36 +124,21 @@ export const ModalRegistrarAsesor = () => {
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='email'
-                                name='email'
-                                label="Email *"
+                                id='correo'
+                                name='correo'
+                                label="Correo *"
                                 type="text"
                                 placeholder='Correo@GrupoMaruplas.com'
                                 fullWidth
-                                value={values.email}
+                                value={values.correo}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                error={errors.email && touched.email ? true : false}
-                                helperText={errors.email && touched.email ? errors.email : ""}
+                                error={errors.correo && touched.correo ? true : false}
+                                helperText={errors.correo && touched.correo ? errors.correo : ""}
                             />
                         </Grid>
                     </Grid>
-                    <Grid >
-                        <Grid style={{ width: '100%', padding: '5px' }}>
-                            <TextField
-                                id='password'
-                                name='password'
-                                label="Password *"
-                                type="password"
-                                fullWidth
-                                value={values.password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={errors.password && touched.password ? true : false}
-                                helperText={errors.password && touched.password ? errors.password : ""}
-                            />
-                        </Grid>
-                    </Grid>
+                
                     <Grid >
                         <Grid container direction='row' justifyContent='center' >
                             <IconButton
@@ -168,18 +164,16 @@ export const ModalRegistrarAsesor = () => {
                                     ':hover': { backgroundColor: 'primary.main', opacity: 0.8 },
                                     borderRadius: '15px',
                                     margin: '10px',
-                                    fontSize: '18px',
-                                    ':disabled': {}
+                                    fontSize: '18px'
                                 }}
                                 type="submit"
-                                disabled={Object.keys(errors).length !== 0 || !touched.name || !touched.rol || !touched.celular || !touched.email || !touched.password ? true : false}
+                            // disabled={Object.keys(errors).length !== 0 || !touched.nombre || !touched.rol || !touched.ciudad || !touched.email || !touched.password ? true : false}
                             >
                                 Guardar &nbsp;
                                 <Save />
                             </IconButton>
                         </Grid>
                     </Grid>
-
                 </Grid>
             </form>
         </Modal>

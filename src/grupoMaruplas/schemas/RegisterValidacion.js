@@ -4,8 +4,8 @@ const passwordRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d
 
 export const RegisterValidacions = yup.object().shape({
 
-    name: yup.string().min(5).required("Requerido"),
-    rol: yup.string().min(5).required("Requerido"),
+    name: yup.string().min(3).required("Requerido"),
+    rol: yup.string().min(3).required("Requerido"),
     celular: yup.number().positive().min(10).integer().required("Requerido"),
     email: yup.string().email("Por favor ingresar correo valido").required("Requerido"),
     password: yup

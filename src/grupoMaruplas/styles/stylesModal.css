@@ -9,6 +9,7 @@
     justify-content: center;
     transition: opacity .2s ease-in-out;
     z-index: 999;
+    padding: 32px;
 }
 
 .modal-fondo {
@@ -32,7 +33,32 @@
     background: white;
     border-radius: 5px;
     color: rgb(51, 51, 51);
-    display: inline;
+    display: flex;
+    flex-direction: column;
+    height: 31.25rem;
+    width: 31.25rem;
+    outline: none;
+    padding: 10px;
+}
+
+.modalruta{
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+    height: 21.25rem;
+    width: 31.25rem;
+    outline: none;
+    padding: 10px;
+}
+
+.modalCliente{
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
     height: 31.25rem;
     width: 31.25rem;
     outline: none;

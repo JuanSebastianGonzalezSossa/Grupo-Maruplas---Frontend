@@ -20,7 +20,7 @@ export const Asesores = () => {
 
     const { users, state } = useSelector(state => state.user);
 
-    const { message, isSuccessOpen } = useSelector(state => state.ui);
+    const { message, isSuccessOpen, onCloseSuccess } = useSelector(state => state.ui);
 
     const onOpenModal = () => {
         console.log('Abriendo modal');
@@ -28,14 +28,21 @@ export const Asesores = () => {
     }
 
     useEffect(() => {
-            getUser();
+        getUser();
     }, [])
 
     useEffect(() => {
-        if (message !== undefined) {
-          Swal.fire( message )
+        if (isSuccessOpen) {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "¡Se ha registrado con exito!",
+                showConfirmButton: false,
+                timer: 2000
+              })
+              onCloseSuccess
         }
-      }, [message])
+      }, [])
       
 
     return (
@@ -46,28 +53,15 @@ export const Asesores = () => {
             className='animate__animated animate__fadeIn animate__faster'>
             <ResponsiveDrawer />
 
-            <Grid item
-                direction="row"
-                alignItems="flex-start"
-                className='box-shadow'
-                xs={3}
-                sx={{
-                    marginTop: 2,
-                    backgroundColor: 'white',
-                    padding: 4,
-                    borderRadius: 3
-                }}>
-
                 {Object.keys(users).length === 0 ? <NothingSelectedView />
                     : <AsesorGrid data={users} />}
 
-            </Grid>
             <IconButton
                 size='large'
                 sx={{
-                    color: 'white',
-                    backgroundColor: 'primary.main',
-                    ':hover': { backgroundColor: 'primary.main', opacity: 0.8 },
+                    color: 'third.main',
+                    backgroundColor: 'fifth.main',
+                    ':hover': { backgroundColor: 'fifth.main', opacity: 0.8 },
                     position: 'fixed',
                     right: 50,
                     bottom: 30
