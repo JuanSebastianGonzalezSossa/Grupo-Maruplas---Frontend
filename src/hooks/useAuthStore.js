@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import Swal from "sweetalert2";
 import { serviceMaruplas } from "../Apis";
-import { onAddNewUser } from "../store";
+import { onAddNewUser, onUser } from "../store";
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/authSlice";
 import { onOpenSuccess, onCloseSuccess } from "../store/ui/uiSlice";
 
@@ -39,6 +39,51 @@ export const useAuthStore = () => {
         }
     }
 
+    const startDeletingAsesor = async (values, api) => {
+        try {
+            const { data } = await serviceMaruplas.delete(`/${api}/${values._id}`);
+            console.log(data)
+            dispatch(onUser(data.usuarios));
+            if (data.ok) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire('Error al eliminar', error.response.data.msg, 'error');
+        }
+
+    }
+
+    const savingUsuarios = async (values) => {
+        console.log(values)
+        try {
+            if (values._id) {
+                // Actualizando
+                const { data } = await serviceMaruplas.put(`/auth/${values._id}`, values);
+                console.log(data)
+                dispatch(onUser(data.usuarios));
+                if (data.ok) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                return;
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire('Error al guardar', error.response.data.msg, 'error');
+        }
+    }
+
     const checkAuthToken = async () => {
         const token = localStorage.getItem('token')
 
@@ -70,7 +115,9 @@ export const useAuthStore = () => {
         startLogin,
         checkAuthToken,
         startLogout,
-        startRegister
+        startRegister,
+        startDeletingAsesor,
+        savingUsuarios
 
     }
 

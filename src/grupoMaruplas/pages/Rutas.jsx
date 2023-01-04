@@ -21,8 +21,6 @@ const api = "rutas";
 
 export const Rutas = () => {
 
-    const dispatch = useDispatch();
-
     const { openDateModal} = useUiStore();
 
     const { getRutas } = useServices();

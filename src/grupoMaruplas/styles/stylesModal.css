@@ -64,3 +64,51 @@
     outline: none;
     padding: 10px;
 }
+
+.modalProductos{
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+    height: 35.25rem;
+    width: 31.25rem;
+    outline: none;
+    padding: 10px;
+}
+
+.modalEditarProductos{
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+    height: 30.25rem;
+    width: 31.25rem;
+    outline: none;
+    padding: 10px;
+}
+
+.modalAsesor{
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+    height: 27.25rem;
+    width: 31.25rem;
+    outline: none;
+    padding: 10px;
+}
+
+.modalEditarAsesor{
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+    height: 21.25rem;
+    width: 31.25rem;
+    outline: none;
+    padding: 10px;
+}

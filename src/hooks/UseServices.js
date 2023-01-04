@@ -1,7 +1,8 @@
 import { serviceMaruplas } from "../Apis";
 import { useDispatch, useSelector } from "react-redux"
-import { onClientes, onRutas, onAddNewRutas, onUpdateRutas, onAddNewCliente, onUpdateCliente } from "../store";
+import { onClientes, onRutas, onAddNewRutas, onUpdateRutas, onAddNewCliente, onUpdateCliente, onProductos, onUpdateProductos, onAddNewProductos, onAddNewUser } from "../store";
 import Swal from "sweetalert2";
+import { fileUpload } from "../helpers/FileUpload";
 
 export const useServices = () => {
 
@@ -61,13 +62,13 @@ export const useServices = () => {
     }
 
     const startDeletingClientes = async (values, api) => {
-        
+
         try {
             const { data } = await serviceMaruplas.delete(`/${api}/${values.id}`);
             dispatch(onClientes({ ...values, user }));
             console.log(data)
             if (data.ok) {
-                Swal.fire(  
+                Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
                     'success'
@@ -133,12 +134,84 @@ export const useServices = () => {
     }
 
     const startDeletingRuta = async (values, api) => {
-        
         try {
-            const { data } = await serviceMaruplas.delete(`/${api}/${values.id}`);
-            console.log(data)
+            const { data } = await serviceMaruplas.delete(`/${api}/${values._id}`);
+
             if (data.ok) {
-                Swal.fire(  
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire('Error al eliminar', error.response.data.msg, 'error');
+        }
+
+    }
+
+    const getProductos = async () => {
+        try {
+            const { data } = await serviceMaruplas.get('/products');
+            console.log(data)
+            dispatch(onProductos(data.productos));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const savingProductos = async (values, file = []) => {
+
+        try {
+            if (values.id) {
+                // Actualizando
+                const imagen = await fileUpload(file[0], 'maruplas');
+                const { data } = await serviceMaruplas.put(`/products/${values.id}`, values, imagen);
+                console.log(data.productos)
+                dispatch(onProductos(data.productos));
+                if (data.ok) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                return;
+            }
+            //Creando
+
+            const { data } = await serviceMaruplas.post('/products', { nombre: values.nombre.toLowerCase(), imagenURL: `${imagen}`, cantidad: values.cantidad, precio: values.precio, descripcion: values.descripcion, referencia: values.referencia });
+
+            dispatch(onAddNewProductos({ ...values, id: values.id, imagenURL: imagen, user }));
+            if (data.ok) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire('Error al guardar', error.response.data.msg, 'error');
+        }
+
+
+    }
+
+    const DeletingProductos = async (values) => {
+        try {
+            const { data } = await serviceMaruplas.delete(`/products/${values.id}`);
+            console.log(data)
+            dispatch(onProductos(data.productos));
+            if (data.ok) {
+                Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
                     'success'
@@ -160,6 +233,8 @@ export const useServices = () => {
         startDeletingRuta,
         savingClientes,
         startDeletingClientes,
-
+        getProductos,
+        savingProductos,
+        DeletingProductos
     }
 }

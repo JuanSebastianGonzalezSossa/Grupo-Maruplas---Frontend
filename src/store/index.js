@@ -3,4 +3,5 @@ export * from './ui/uiSlice';
 export * from './GrupoMaruplas/userSlice';
 export * from './GrupoMaruplas/rutaSlice';
 export * from './GrupoMaruplas/clienteSlice';
+export * from './GrupoMaruplas/productoSlice';
 export * from './store';

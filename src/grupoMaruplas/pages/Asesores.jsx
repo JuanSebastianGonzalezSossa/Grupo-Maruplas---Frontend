@@ -10,7 +10,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { NothingSelectedView } from '../components/NothingSelectedView';
 import { AsesorGrid } from '../components/asesoresGrid'
 import Swal from 'sweetalert2';
-import { clearStateMessage } from '../../store';
+import { ModalEditarCliente } from '../views/ModalEditarCliente';
+import { ModalEditarAsesor } from '../views/ModalEditarAsesor';
 
 export const Asesores = () => {
 
@@ -39,22 +40,25 @@ export const Asesores = () => {
                 title: "¡Se ha registrado con exito!",
                 showConfirmButton: false,
                 timer: 2000
-              })
-              onCloseSuccess
+            })
+            onCloseSuccess
         }
-      }, [])
-      
+    }, [])
+
 
     return (
-        <Box
-            component="main"
+        <Grid
+            className='animate__animated animate__fadeIn animate__faster'
+            container
+            spacing={0}
+            direction="row"
             alignItems="flex-start"
-            sx={{ display: 'flex', minHeight: '100%', minwidth: '100%', backgroundColor: 'white', borderRadius: 3 }}
-            className='animate__animated animate__fadeIn animate__faster'>
+            justifyContent="space-evenly"
+            sx={{ minHeight: '100vh', backgroundColor: 'primary.main', marginTop: 5 }}>
             <ResponsiveDrawer />
 
-                {Object.keys(users).length === 0 ? <NothingSelectedView />
-                    : <AsesorGrid data={users} />}
+            {Object.keys(users).length === 0 ? <NothingSelectedView />
+                : <AsesorGrid data={users} />}
 
             <IconButton
                 size='large'
@@ -73,6 +77,7 @@ export const Asesores = () => {
             </IconButton>
 
             <ModalRegistrarAsesor />
-        </Box>
+            <ModalEditarAsesor />
+        </Grid>
     )
 }
