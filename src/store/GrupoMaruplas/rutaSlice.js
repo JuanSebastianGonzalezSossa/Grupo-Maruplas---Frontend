@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const rutaSlice = createSlice({
     name: 'ruta',
     initialState: {
-        rutas: {},
+        rutas: [],
     },
     reducers: {
         onRutas: (state, { payload }) => {
@@ -13,7 +13,13 @@ export const rutaSlice = createSlice({
             state.rutas.push( payload );
         },
         onUpdateRutas: ( state, { payload } ) => {
-            state.rutas.push( payload );
+            state.rutas = state.rutas.map(ruta => {
+                if (ruta.id === payload.id) {
+                    return payload;
+                }
+
+                return ruta;
+            });
         },
     }
 });

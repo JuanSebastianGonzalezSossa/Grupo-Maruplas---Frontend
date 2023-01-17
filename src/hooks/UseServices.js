@@ -1,6 +1,6 @@
 import { serviceMaruplas } from "../Apis";
 import { useDispatch, useSelector } from "react-redux"
-import { onClientes, onRutas, onAddNewRutas, onUpdateRutas, onAddNewCliente, onUpdateCliente, onProductos, onUpdateProductos, onAddNewProductos, onAddNewUser } from "../store";
+import { onClientes, onRutas, onAddNewRutas, onUpdateRutas, onAddNewCliente, onUpdateCliente, onProductos, onAddNewProductos } from "../store";
 import Swal from "sweetalert2";
 import { fileUpload } from "../helpers/FileUpload";
 
@@ -27,8 +27,9 @@ export const useServices = () => {
                 // Actualizando
                 const { data } = await serviceMaruplas.put(`/customers/${values.id}`, values);
                 console.log(values)
-                dispatch(onUpdateCliente({ ...values, user }));
-                if (data.ok) {
+                const { ok, customer } = data;
+                dispatch(onUpdateCliente({...customer, user}));
+                if (ok) {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -42,8 +43,9 @@ export const useServices = () => {
             // Creando
             const { data } = await serviceMaruplas.post('/customers', values);
             console.log(data);
-            dispatch(onAddNewCliente({ ...values, id: values.id, user }));
-            if (data.ok) {
+            const { ok, customer } = data;
+            dispatch(onAddNewCliente({...customer, user}));
+            if (ok) {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -62,10 +64,9 @@ export const useServices = () => {
     }
 
     const startDeletingClientes = async (values, api) => {
-
         try {
             const { data } = await serviceMaruplas.delete(`/${api}/${values.id}`);
-            dispatch(onClientes({ ...values, user }));
+            dispatch(onClientes(data.customers));
             console.log(data)
             if (data.ok) {
                 Swal.fire(
@@ -98,9 +99,10 @@ export const useServices = () => {
             if (values.id) {
                 // Actualizando
                 const { data } = await serviceMaruplas.put(`/rutas/${values.id}`, values);
+                const { ok, ruta } = data;
                 console.log(values)
-                dispatch(onUpdateRutas({ ...values, user }));
-                if (data.ok) {
+                dispatch(onUpdateRutas({...ruta, user}));
+                if (ok) {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -114,8 +116,9 @@ export const useServices = () => {
             // Creando
             const { data } = await serviceMaruplas.post('/rutas', values);
             console.log(data);
-            dispatch(onAddNewRutas({ ...values, id: values.id, user }));
-            if (data.ok) {
+            const { ok, ruta } = data;
+            dispatch(onAddNewRutas({ ...ruta, user }));
+            if (ok) {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -135,9 +138,10 @@ export const useServices = () => {
 
     const startDeletingRuta = async (values, api) => {
         try {
-            const { data } = await serviceMaruplas.delete(`/${api}/${values._id}`);
-
-            if (data.ok) {
+            const { data } = await serviceMaruplas.delete(`/${api}/${values.id}`);
+            const { ok, rutas } = data;
+            dispatch(onRutas(rutas));
+            if (ok) {
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
@@ -165,9 +169,9 @@ export const useServices = () => {
     const savingProductos = async (values, file = []) => {
 
         try {
+            const imagen = await fileUpload(file[0], 'maruplas');
             if (values.id) {
                 // Actualizando
-                const imagen = await fileUpload(file[0], 'maruplas');
                 const { data } = await serviceMaruplas.put(`/products/${values.id}`, values, imagen);
                 console.log(data.productos)
                 dispatch(onProductos(data.productos));
@@ -186,7 +190,8 @@ export const useServices = () => {
 
             const { data } = await serviceMaruplas.post('/products', { nombre: values.nombre.toLowerCase(), imagenURL: `${imagen}`, cantidad: values.cantidad, precio: values.precio, descripcion: values.descripcion, referencia: values.referencia });
 
-            dispatch(onAddNewProductos({ ...values, id: values.id, imagenURL: imagen, user }));
+            dispatch(onAddNewProductos({ ...data.producto, user }));
+            console.log(data.producto)
             if (data.ok) {
                 Swal.fire({
                     position: 'top-end',

@@ -20,7 +20,8 @@ export const ColorTheme = createTheme({
             main: '#9ce9de'
         },
         error: {
-            main: '#CB4335'
+            main: '#CB4335',
+            success: '#55E67E'
         }
     }
 })

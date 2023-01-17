@@ -5,21 +5,41 @@ export const uiSlice = createSlice({
     initialState: {
         isDateModalOpen: false,
         isSuccessOpen: false,
+        isPedidoOpen: false,
+        isRutaOpen: false,
         message: undefined,
         isNow: {},
+        total: 0,
     },
     reducers: {
-        onOpenDateModal: ( state ) => {
+        onTotal: (state, { payload }) => {
+            state.total = payload;
+        },
+        onOpenDateModal: (state) => {
             state.isDateModalOpen = true;
         },
-        onCloseDateModal: ( state ) => {
+        onCloseDateModal: (state) => {
             state.isDateModalOpen = false;
         },
-        onOpenSuccess: ( state, {payload} ) => {
+        onOpenPedido: (state) => {
+            state.isPedidoOpen = true;
+            state.isRutaOpen = false;
+        },
+        onClosePedido: (state) => {
+            state.isPedidoOpen = false;
+        },
+        onOpenRuta: (state) => {
+            state.isRutaOpen = true;
+            state.isPedidoOpen = false;
+        },
+        onCloseRuta: (state) => {
+            state.isRutaOpen = false;
+        },
+        onOpenSuccess: (state, { payload }) => {
             state.isSuccessOpen = true;
             state.message = payload;
         },
-        onCloseSuccess: ( state ) => {
+        onCloseSuccess: (state) => {
             state.isSuccessOpen = false;
             state.message = undefined;
         },
@@ -31,4 +51,4 @@ export const uiSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { onOpenDateModal, onCloseDateModal, onOpenSuccess, onCloseSuccess, onUpdateNow } = uiSlice.actions;
+export const { onOpenDateModal, onCloseDateModal, onOpenSuccess, onCloseSuccess, onUpdateNow, onOpenPedido, onClosePedido, onCloseRuta, onOpenRuta, onTotal } = uiSlice.actions;

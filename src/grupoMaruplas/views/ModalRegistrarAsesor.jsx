@@ -88,7 +88,7 @@ export const ModalRegistrarAsesor = () => {
                                     helperText={errors.rol && touched.rol ? errors.rol : ""}
                                 >
                                     <MenuItem value="Administrador">Administrador</MenuItem>
-                                    <MenuItem value={'Asesor'}>Asesor</MenuItem>
+                                    <MenuItem value="Asesor">Asesor</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

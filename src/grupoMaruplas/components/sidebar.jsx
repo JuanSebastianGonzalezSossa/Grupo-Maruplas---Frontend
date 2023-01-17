@@ -24,10 +24,17 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import ViewListIcon from '@mui/icons-material/ViewList';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { LogoutOutlined } from '@mui/icons-material';
 import { useAuthStore } from '../../hooks/useAuthStore';
 import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Link } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
+import '../styles/sideBar.css'
+import { useUiStore } from '../../hooks/useUiStore';
+import { ModalPedidos } from '../views/ModalPedidos';
+import { ModalFinalizarPedido } from '../views/ModalFinalizarPedido';
+
 
 const drawerWidth = 240;
 
@@ -75,10 +82,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+
 export const ResponsiveDrawer = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { user, startLogout } = useAuthStore();
+  const { openPedidoModal } = useUiStore();
+
+
+  const mostrarPedido = () => {
+    if (pedidos.length > 0) {
+      openPedidoModal()
+    }
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -87,6 +103,8 @@ export const ResponsiveDrawer = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const { pedidos } = useSelector(state => state.pedido);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -106,9 +124,14 @@ export const ResponsiveDrawer = () => {
             <Typography variant="h6" noWrap component="div">
               {user.name}
             </Typography>
-            <IconButton color='error' onClick={startLogout}>
-              <LogoutOutlined />
-            </IconButton>
+            <Grid>
+              <IconButton sx={{ color: 'whitesmoke', fontSize: '16px' }} onClick={mostrarPedido}> ({pedidos.length})
+                <ListAltIcon />
+              </IconButton>
+              <IconButton color='error' onClick={startLogout}>
+                <LogoutOutlined />
+              </IconButton>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -134,7 +157,7 @@ export const ResponsiveDrawer = () => {
         <List>
           <Link component={RouterLink} style={{ textDecoration: 'none', fontWeight: 'bold', fontSize: 15 }} variant='h6' color='inherit' to="/Asesores">
             <ListItem key={'Asesores'} disablePadding>
-              <ListItemButton 
+              <ListItemButton
                 sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -145,16 +168,16 @@ export const ResponsiveDrawer = () => {
                 }}>
                   <SupportAgentIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Asesores'}/>
+                <ListItemText primary={'Asesores'} />
               </ListItemButton>
             </ListItem>
           </Link>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Rutas">
             <ListItem key={'Rutas'} disablePadding>
               <ListItemButton sx={{
-                  color: 'primary.main',
-                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
-                }}>
+                color: 'primary.main',
+                ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+              }}>
                 <ListItemIcon sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -168,9 +191,9 @@ export const ResponsiveDrawer = () => {
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Clientes">
             <ListItem key={'Clientes'} disablePadding>
               <ListItemButton sx={{
-                  color: 'primary.main',
-                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
-                }}>
+                color: 'primary.main',
+                ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+              }}>
                 <ListItemIcon sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -184,9 +207,9 @@ export const ResponsiveDrawer = () => {
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Productos">
             <ListItem key={'Productos'} disablePadding>
               <ListItemButton sx={{
-                  color: 'primary.main',
-                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
-                }}>
+                color: 'primary.main',
+                ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+              }}>
                 <ListItemIcon sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -200,9 +223,9 @@ export const ResponsiveDrawer = () => {
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Pedidos">
             <ListItem key={'Pedidos'} disablePadding>
               <ListItemButton sx={{
-                  color: 'primary.main',
-                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
-                }}>
+                color: 'primary.main',
+                ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+              }}>
                 <ListItemIcon sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -216,9 +239,9 @@ export const ResponsiveDrawer = () => {
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Viaticos">
             <ListItem key={'Viaticos'} disablePadding>
               <ListItemButton sx={{
-                  color: 'primary.main',
-                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
-                }}>
+                color: 'primary.main',
+                ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+              }}>
                 <ListItemIcon sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -235,9 +258,9 @@ export const ResponsiveDrawer = () => {
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReportePedidos">
             <ListItem key={'Reporte pedidos'} disablePadding>
               <ListItemButton sx={{
-                  color: 'primary.main',
-                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
-                }}>
+                color: 'primary.main',
+                ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+              }}>
                 <ListItemIcon sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -251,9 +274,9 @@ export const ResponsiveDrawer = () => {
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReporteViaticos">
             <ListItem key={'Reporte viaticos'} disablePadding>
               <ListItemButton sx={{
-                  color: 'primary.main',
-                  ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
-                }}>
+                color: 'primary.main',
+                ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
+              }}>
                 <ListItemIcon sx={{
                   color: 'primary.main',
                   ':hover': { backgroundColor: 'primary.main', opacity: 0.8, color: 'primary.blanco' },
@@ -269,6 +292,8 @@ export const ResponsiveDrawer = () => {
       <Main open={open}>
         <DrawerHeader />
       </Main>
+      <ModalPedidos/>
+      <ModalFinalizarPedido/>
     </Box>
   );
 }

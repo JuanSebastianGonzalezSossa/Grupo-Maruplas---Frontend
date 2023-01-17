@@ -6,12 +6,15 @@ import { useServices } from '../../hooks/UseServices';
 import { onUpdateNow } from '../../store';
 import Swal from 'sweetalert2';
 import { useUiStore } from '../../hooks/useUiStore';
+import { usePedidos } from '../../hooks/usePedidos';
 
 export const ProductosList = ({ Productos }) => {
 
     const { DeletingProductos } = useServices();
 
     const { OpenSuccess, updateNow } = useUiStore();
+
+    const { addToOrder } = usePedidos();
 
     const AbrirEditar = (actual) => {
         updateNow(actual)
@@ -33,6 +36,11 @@ export const ProductosList = ({ Productos }) => {
                 DeletingProductos(actual);
             }
         })
+    }
+
+    const AñadirPedido = (actual) => {
+        updateNow(actual)
+        addToOrder(actual)
     }
 
 
@@ -71,7 +79,7 @@ export const ProductosList = ({ Productos }) => {
                                                 backgroundColor: 'white',
                                                 margin: '5px',
                                                 ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                            }} onClick={"hola"}><AddShoppingCartIcon sx={{ fontSize: 26 }}> </AddShoppingCartIcon> </IconButton>
+                                            }} onClick={() => AñadirPedido(prod)}><AddShoppingCartIcon sx={{ fontSize: 26 }}> </AddShoppingCartIcon> </IconButton>
                                             <IconButton sx={{
                                                 left: '35%',
                                                 color: 'secondary.main',

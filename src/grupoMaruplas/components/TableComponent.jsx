@@ -1,20 +1,30 @@
 import { Delete, Edit } from '@mui/icons-material';
 import { Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTable, useFilters } from 'react-table';
 import Swal from 'sweetalert2';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useServices } from '../../hooks/UseServices';
 import { useUiStore } from '../../hooks/useUiStore';
 import '../styles/Table.css'
+import { usePedidos } from '../../hooks/usePedidos';
+import { useSelector } from 'react-redux';
 
 export const TableComponent = ({ columnas, filas, api }) => {
 
+    const [data, setData] = useState(filas);
+
     const columns = useMemo(() => columnas, []);
-    const data = useMemo(() => filas, [])
+
+    const { DeletingPedidos } = usePedidos();
+
+    useEffect(() => {
+        setData(filas);
+    }, [filas]);
 
     const { OpenSuccess, updateNow } = useUiStore();
 
-    const { startDeletingRuta } = useServices();
+    const { startDeletingRuta, startDeletingClientes } = useServices();
 
     const { getTableProps, getTableBodyProps, rows, headerGroups, prepareRow, state } = useTable({
         columns,
@@ -38,7 +48,14 @@ export const TableComponent = ({ columnas, filas, api }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                    startDeletingRuta(actual,api);
+                if (api == 'pedidos') {
+                    DeletingPedidos(actual);
+                } else if (api == 'customers') {
+                    startDeletingClientes(actual, api);
+                } else {
+                    startDeletingRuta(actual, api);
+                }
+
             }
         })
     }
@@ -75,7 +92,7 @@ export const TableComponent = ({ columnas, filas, api }) => {
                                     color: 'secondary.main',
                                     backgroundColor: 'white',
                                     ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                }} onClick={() => AbrirEditar(row.original)}><Edit sx={{ fontSize: 22 }}></Edit></IconButton>
+                                }} onClick={() => AbrirEditar(row.original)}> {api == 'pedidos' ? <VisibilityIcon sx={{ fontSize: 22 }}></VisibilityIcon> : <Edit sx={{ fontSize: 22 }}></Edit>}</IconButton>
                                     <IconButton sx={{
                                         color: 'error.main',
                                         backgroundColor: 'white',

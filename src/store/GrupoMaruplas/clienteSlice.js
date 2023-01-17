@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const clienteSlice = createSlice({
     name: 'cliente',
     initialState: {
-        clientes: {}
+        clientes: []
     },
     reducers: {
         onClientes: (state, { payload }) => {
@@ -13,7 +13,13 @@ export const clienteSlice = createSlice({
             state.clientes.push( payload );
         },
         onUpdateCliente: ( state, { payload } ) => {
-            state.clientes.push( payload );
+            state.clientes = state.clientes.map(cliente => {
+                if (cliente.id === payload.id) {
+                    return payload;
+                }
+
+                return cliente;
+            });
         },
     }
 });

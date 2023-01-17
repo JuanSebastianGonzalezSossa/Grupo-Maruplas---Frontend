@@ -5,6 +5,7 @@ import { useUiStore } from "../../hooks/useUiStore";
 import Swal from "sweetalert2";
 import { useAuthStore } from "../../hooks/useAuthStore";
 
+
 export const AsesorGrid = ({ data }) => {
 
     const { OpenSuccess, updateNow } = useUiStore();
@@ -32,6 +33,7 @@ export const AsesorGrid = ({ data }) => {
             }
         })
     }
+
 
     return (
         <Grid
