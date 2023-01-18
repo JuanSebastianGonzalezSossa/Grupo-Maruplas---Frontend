@@ -33,7 +33,7 @@ export const useServices = () => {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Your work has been saved',
+                        title: 'El cliente fue actualizado con exito!',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -49,7 +49,7 @@ export const useServices = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'El cliente fue creado con exito!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -70,8 +70,8 @@ export const useServices = () => {
             console.log(data)
             if (data.ok) {
                 Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Eliminado!',
+                    'El cliente fue eliminado con exito.',
                     'success'
                 )
             }
@@ -106,7 +106,7 @@ export const useServices = () => {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Your work has been saved',
+                        title: 'La ruta fue actualizada con exito!',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -122,7 +122,7 @@ export const useServices = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'La ruta fue creada con exito!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -143,8 +143,8 @@ export const useServices = () => {
             dispatch(onRutas(rutas));
             if (ok) {
                 Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Eliminado!',
+                    'La ruta fue eliminada con exito!',
                     'success'
                 )
             }
@@ -179,7 +179,7 @@ export const useServices = () => {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Your work has been saved',
+                        title: 'El producto fue actualizado con exito!',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -196,7 +196,7 @@ export const useServices = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'El producto fue creado con exito!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -217,8 +217,8 @@ export const useServices = () => {
             dispatch(onProductos(data.productos));
             if (data.ok) {
                 Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Elimniado!',
+                    'El producto fue eliminado con exito.',
                     'success'
                 )
             }

@@ -76,7 +76,7 @@ export const ModalPedidos = () => {
             <hr />
             <Typography variant='h7' sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '10px', fontStyle: 'italic', fontWeight: 'bold' }}>Total: {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COL' }).format(Total)}</Typography>
 
-            <Grid item sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', margin: '10px' }}  >
+            <Grid item sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', margin: '10px' }}  >
                 <Button onClick={() => clearOrder()} sx={{
                     color: 'white',
                     backgroundColor: 'error.main',

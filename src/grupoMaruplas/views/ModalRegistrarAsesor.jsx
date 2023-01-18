@@ -12,7 +12,7 @@ Modal.setAppElement('#root');
 
 export const ModalRegistrarAsesor = () => {
 
-    const { isDateModalOpen, closeDateModal} = useUiStore();
+    const { isDateModalOpen, closeDateModal } = useUiStore();
 
     const { startRegister } = useAuthStore();
 
@@ -21,8 +21,8 @@ export const ModalRegistrarAsesor = () => {
         actions.resetForm();
         closeDateModal();
     }
-    
-   
+
+
 
     const { values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, resetForm } = useFormik({
         initialValues: {
@@ -73,10 +73,11 @@ export const ModalRegistrarAsesor = () => {
                         </Grid>
                     </Grid>
                     <Grid >
-                        <Grid style={{ width: '100%', padding: '5px' }}>
-                            <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <Grid style={{ width: '98%', padding: '5px' }}>
+                            <FormControl required sx={{ m: 1, minWidth: '100%' }}>
                                 <InputLabel id="demo-simple-select-label">Rol</InputLabel>
                                 <Select
+                                    sx={{ minWidth: '90%'}}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     name='rol'

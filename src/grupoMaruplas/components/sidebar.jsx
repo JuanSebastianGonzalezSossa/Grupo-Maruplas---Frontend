@@ -34,6 +34,7 @@ import '../styles/sideBar.css'
 import { useUiStore } from '../../hooks/useUiStore';
 import { ModalPedidos } from '../views/ModalPedidos';
 import { ModalFinalizarPedido } from '../views/ModalFinalizarPedido';
+import LogoEmpresa from '../../../public/logo_empresa.png'
 
 
 const drawerWidth = 240;
@@ -110,7 +111,9 @@ export const ResponsiveDrawer = () => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
+
         <Toolbar>
+
           <Grid container direction='row' justifyContent='space-between' alignItems='center' >
             <IconButton
               color="inherit"
@@ -148,7 +151,16 @@ export const ResponsiveDrawer = () => {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+
+
+        <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-evenly', padding: '0px', marginTop: '10px' }}>
+          <Link component={RouterLink} style={{ textDecoration: 'none', fontWeight: 'bold', fontSize: 15 }} variant='h6' color='inherit' to="/">
+            <img
+              src={LogoEmpresa}
+              alt="Grupo Maruplas S.A.S"
+              style={{ width: '82px', height: '66px', padding: '0px', margin: '0px' }}
+            ></img>
+          </Link>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
@@ -292,8 +304,8 @@ export const ResponsiveDrawer = () => {
       <Main open={open}>
         <DrawerHeader />
       </Main>
-      <ModalPedidos/>
-      <ModalFinalizarPedido/>
+      <ModalPedidos />
+      <ModalFinalizarPedido />
     </Box>
   );
 }

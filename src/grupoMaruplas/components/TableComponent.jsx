@@ -9,6 +9,9 @@ import { useUiStore } from '../../hooks/useUiStore';
 import '../styles/Table.css'
 import { usePedidos } from '../../hooks/usePedidos';
 import { useSelector } from 'react-redux';
+import { createPdf } from '../../helpers/Pdf';
+import DownloadIcon from '@mui/icons-material/Download';
+import { useAuthStore } from '../../hooks/useAuthStore';
 
 export const TableComponent = ({ columnas, filas, api }) => {
 
@@ -17,6 +20,8 @@ export const TableComponent = ({ columnas, filas, api }) => {
     const columns = useMemo(() => columnas, []);
 
     const { DeletingPedidos } = usePedidos();
+
+    const { removeAcumulado } = useAuthStore();
 
     useEffect(() => {
         setData(filas);
@@ -39,17 +44,20 @@ export const TableComponent = ({ columnas, filas, api }) => {
     const AbrirDelete = (actual) => {
         updateNow(actual)
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Estas seguro?',
+            text: "Lo que vas a hacer no se puede revertir!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Si, eliminalo!',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 if (api == 'pedidos') {
                     DeletingPedidos(actual);
+                    console.log()
+                    removeAcumulado(parseInt(actual.precioTotal.replace(".","").replace(".","").replace(".","").replace("COL","")))
                 } else if (api == 'customers') {
                     startDeletingClientes(actual, api);
                 } else {
@@ -96,13 +104,19 @@ export const TableComponent = ({ columnas, filas, api }) => {
                                     <IconButton sx={{
                                         color: 'error.main',
                                         backgroundColor: 'white',
-                                        ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                    }} onClick={() => AbrirDelete(row.original)}><Delete></Delete></IconButton></TableCell>
+                                        ':hover': { backgroundColor: 'white', opacity: 0.4 },
+                                    }} onClick={() => AbrirDelete(row.original)}><Delete></Delete></IconButton>
+                                    {api == 'pedidos' ? <IconButton sx={{
+                                        color: 'primary.main',
+                                        backgroundColor: 'white',
+                                        ':hover': { backgroundColor: 'white', opacity: 0.4 },
+                                    }} onClick={() => createPdf()}><DownloadIcon></DownloadIcon></IconButton> : null}
+                                </TableCell>
                             </TableRow>
                         )
                     })}
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer >
     );
 }

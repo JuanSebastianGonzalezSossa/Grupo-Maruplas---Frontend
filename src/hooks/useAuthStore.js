@@ -8,6 +8,7 @@ import { onOpenSuccess, onCloseSuccess } from "../store/ui/uiSlice";
 export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector(state => state.auth)
+    const { users } = useSelector(state => state.user)
     const dispatch = useDispatch();
 
     const startLogin = async ({ email, password }) => {
@@ -29,9 +30,16 @@ export const useAuthStore = () => {
 
         try {
             const { data } = await serviceMaruplas.post('/auth/new', values );
-            dispatch(onAddNewUser({...values, id: values.id, user }));
+            console.log(data)
+            dispatch(onAddNewUser({...data.usuario, user }));
             if(data.ok){
-                dispatch(onOpenSuccess('¡Se ha registrado con Asesor con exito!'))
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'El usuario se registro con exito!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
         } catch (error) {
             console.log(error)
@@ -46,8 +54,8 @@ export const useAuthStore = () => {
             dispatch(onUser(data.usuarios));
             if (data.ok) {
                 Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Eliminado!',
+                    'El usuario se elimino con exito.',
                     'success'
                 )
             }
@@ -71,17 +79,56 @@ export const useAuthStore = () => {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Your work has been saved',
+                        title: 'El usuario se actualizo con exito!',
                         showConfirmButton: false,
                         timer: 1500
                     })
                 }
                 return;
             }
+
         } catch (error) {
             console.log(error);
             Swal.fire('Error al guardar', error.response.data.msg, 'error');
         }
+    }
+
+    const asyncFunction = async (precioTotal, acum) => {
+        // Código que utiliza await
+        console.log(precioTotal, acum)
+        const { data } = await serviceMaruplas.put(`/auth/${user.uid}`, { acumulado: precioTotal + acum });
+        dispatch(onUser(data.usuarios));
+        console.log(data)
+        return data
+    }
+
+    const addAcumulado = async (precioTotal) => {
+
+        const results = await Promise.all(users.map((us => {
+                us._id == user.uid
+                    ? asyncFunction(precioTotal, us.acumulado)
+                    : console.log('No se encontro pedido relacionado al producto')
+            })))
+
+    }
+
+    const asyncFunctionRemove = async (precioTotal, acum) => {
+        // Código que utiliza await
+        console.log(precioTotal, acum)
+        const { data } = await serviceMaruplas.put(`/auth/${user.uid}`, { acumulado: acum - precioTotal});
+        dispatch(onUser(data.usuarios));
+        console.log(data)
+        return data
+    }
+
+    const removeAcumulado = async (precioTotal) => {
+
+        const results = await Promise.all(users.map((us => {
+                us._id == user.uid
+                    ? asyncFunctionRemove(precioTotal, us.acumulado)
+                    : console.log('No se encontro pedido relacionado al producto')
+            })))
+
     }
 
     const checkAuthToken = async () => {
@@ -117,7 +164,9 @@ export const useAuthStore = () => {
         startLogout,
         startRegister,
         startDeletingAsesor,
-        savingUsuarios
+        savingUsuarios,
+        addAcumulado,
+        removeAcumulado
 
     }
 

@@ -24,13 +24,14 @@ export const ProductosList = ({ Productos }) => {
     const AbrirDelete = (actual) => {
         onUpdateNow(actual)
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Estas seguro?',
+            text: "Lo que vas a hacer no se puede revertir!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Si, eliminalo!',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 DeletingProductos(actual);
@@ -39,6 +40,7 @@ export const ProductosList = ({ Productos }) => {
     }
 
     const AñadirPedido = (actual) => {
+        //Añadir carrito
         updateNow(actual)
         addToOrder(actual)
     }
@@ -73,13 +75,16 @@ export const ProductosList = ({ Productos }) => {
                                     <Grid className="cart" >
                                         <span className="price">{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COL' }).format(prod.precio)}</span>
                                         <span className="add-to-cart">
-                                            <IconButton sx={{
-                                                right: '20%',
-                                                color: 'primary.main',
-                                                backgroundColor: 'white',
-                                                margin: '5px',
-                                                ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                            }} onClick={() => AñadirPedido(prod)}><AddShoppingCartIcon sx={{ fontSize: 26 }}> </AddShoppingCartIcon> </IconButton>
+                                            <IconButton
+                                                sx={{
+                                                    right: '20%',
+                                                    color: 'primary.main',
+                                                    backgroundColor: 'white',
+                                                    margin: '5px',
+                                                    ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
+                                                }} onClick={() => AñadirPedido(prod)}
+                                                disabled={prod.cantidad > 1 ? false : true}
+                                                ><AddShoppingCartIcon sx={{ fontSize: 26 }}> </AddShoppingCartIcon> </IconButton>
                                             <IconButton sx={{
                                                 left: '35%',
                                                 color: 'secondary.main',

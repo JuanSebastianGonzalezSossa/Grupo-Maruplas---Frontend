@@ -9,7 +9,7 @@ export const useUsers = () => {
     const getUser = async () => {
         try {
             const { data } = await serviceMaruplas.get('/auth');
-            console.log()
+            console.log(data)
             dispatch(onUser(data.usuario));
 
         } catch (error) {

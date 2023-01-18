@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useServices } from '../../hooks/UseServices';
 import { usePedidos } from '../../hooks/usePedidos';
+import { useAuthStore } from '../../hooks/useAuthStore'
 
 
 Modal.setAppElement('#root');
@@ -16,6 +17,8 @@ export const ModalFinalizarPedido = () => {
     const { isRutaOpen, closeRutaModal, openPedidoModal, total } = useUiStore();
 
     const { getRutas, getClientes } = useServices();
+
+    const { addAcumulado } = useAuthStore();
 
     const { savingPedidos, clearOrder } = usePedidos();
 
@@ -40,6 +43,7 @@ export const ModalFinalizarPedido = () => {
 
     const onSubmit = (values, actions) => {
         savingPedidos(values.cliente, values.ruta, new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COL' }).format(total), pedidos)
+        addAcumulado(total)
         actions.resetForm();
         clearOrder();
         onCloseModal();
@@ -71,6 +75,7 @@ export const ModalFinalizarPedido = () => {
                             <FormControl required sx={{ m: 1, minWidth: 120 }}>
                                 <InputLabel id="demo-simple-select-label">Ruta</InputLabel>
                                 <Select
+                                    sx={{ minWidth: 300 }}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     name='ruta'
@@ -81,7 +86,7 @@ export const ModalFinalizarPedido = () => {
                                     error={errors.ruta && touched.ruta ? true : false}
                                     helperText={errors.ruta && touched.ruta ? errors.ruta : ""}
                                 >
-                                    {rutas.map((ruta,i) => (
+                                    {rutas.map((ruta, i) => (
                                         <MenuItem
                                             key={i}
                                             value={ruta}
@@ -98,6 +103,7 @@ export const ModalFinalizarPedido = () => {
                             <FormControl required sx={{ m: 1, minWidth: 120 }}>
                                 <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
                                 <Select
+                                    sx={{ minWidth: 300 }}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     name='cliente'
@@ -108,7 +114,7 @@ export const ModalFinalizarPedido = () => {
                                     error={errors.cliente && touched.cliente ? true : false}
                                     helperText={errors.cliente && touched.cliente ? errors.cliente : ""}
                                 >
-                                    {clientes.map((client,i) => (
+                                    {clientes.map((client, i) => (
                                         <MenuItem
                                             key={i}
                                             value={client}
@@ -122,7 +128,7 @@ export const ModalFinalizarPedido = () => {
 
                     </Grid>
                 </Grid>
-                <Grid item sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', margin: '10px' }}  >
+                <Grid item sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', margin: '10px' }}  >
                     <Button onClick={() => Anterior()} sx={{
                         color: 'white',
                         backgroundColor: 'error.main',

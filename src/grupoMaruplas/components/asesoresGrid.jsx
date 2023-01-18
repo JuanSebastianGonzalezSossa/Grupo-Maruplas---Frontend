@@ -20,13 +20,14 @@ export const AsesorGrid = ({ data }) => {
     const AbrirDelete = (actual) => {
         updateNow(actual)
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Estas seguro?',
+            text: "Lo que vas a hacer no se puede revertir!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Si, eliminalo!',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 startDeletingAsesor(actual, "auth");

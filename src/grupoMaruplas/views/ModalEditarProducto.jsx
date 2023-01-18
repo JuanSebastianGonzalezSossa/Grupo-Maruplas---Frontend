@@ -16,6 +16,15 @@ export const ModalEditarProducto = () => {
 
     const { savingProductos } = useServices();
 
+    const fileInputRef = useRef();
+
+    const [file, setFile] = useState([]);
+
+    const onFileInputChange = ({ target }) => {
+        if( target.files === 0 ) return;
+        setFile(target.files);
+        console.log(target.files)
+    }
     
     const onSubmit = (values, actions) => {
         savingProductos(values, file)
@@ -64,6 +73,19 @@ export const ModalEditarProducto = () => {
                                 onBlur={handleBlur}
                                 error={errors.nombre && touched.nombre ? true : false}
                                 helperText={errors.nombre && touched.nombre ? errors.nombre : ""}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid >
+                        <Grid style={{ width: '100%', padding: '5px' }}>
+                            <TextField
+                                id='imagenURL'
+                                nombre='imagenURL'
+                                type="file"
+                                fullWidth
+                                ref={ fileInputRef }
+                                onChange={onFileInputChange}
+                                required
                             />
                         </Grid>
                     </Grid>

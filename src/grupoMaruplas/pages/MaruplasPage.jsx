@@ -1,11 +1,12 @@
-import { Grid } from '@mui/material'
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { useServices } from '../../hooks/UseServices';
+import { Button, Grid } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { ResponsiveDrawer } from '../components/sidebar'
+import { BartChart } from '../components/BartChart'
+import { useSelector } from 'react-redux'
+import { usePedidos } from '../../hooks/usePedidos'
+import { useUsers } from '../../hooks/useUsers'
 
 export const MaruplasPage = () => {
-
 
     return (
         <Grid
@@ -18,7 +19,8 @@ export const MaruplasPage = () => {
             sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
         >
             <ResponsiveDrawer />
-            Home
+
+            <BartChart />
         </Grid>
     )
 }

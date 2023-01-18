@@ -101,20 +101,17 @@ export const usePedidos = () => {
 
     console.log(results);
 
-      
-
-
-
         try {
             // Creando
             const { data } = await serviceMaruplas.post('/pedidos', { Cliente: cliente.nombres, Productos: order, Ruta: ruta.nombre, precioTotal: total });
+            
             console.log(order.cantidad, productos.cantidad);
             dispatch(onAddPedidos(data.pedido));
             if (data.ok) {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'Tu pedido fue guardado con exito!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -135,8 +132,8 @@ export const usePedidos = () => {
             dispatch(onPedidos(data.pedidos));
             if (data.ok) {
                 Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Eliminado!',
+                    'Tu pedido fue eliminado con exito!.',
                     'success'
                 )
             }
