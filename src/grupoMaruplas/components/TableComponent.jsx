@@ -110,7 +110,7 @@ export const TableComponent = ({ columnas, filas, api }) => {
                                         color: 'primary.main',
                                         backgroundColor: 'white',
                                         ':hover': { backgroundColor: 'white', opacity: 0.4 },
-                                    }} onClick={() => createPdf()}><DownloadIcon></DownloadIcon></IconButton> : null}
+                                    }} onClick={() => createPdf(row.original)}><DownloadIcon></DownloadIcon></IconButton> : null}
                                 </TableCell>
                             </TableRow>
                         )

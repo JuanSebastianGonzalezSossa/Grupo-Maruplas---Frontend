@@ -89,6 +89,7 @@ export const ResponsiveDrawer = () => {
   const [open, setOpen] = React.useState(false);
   const { user, startLogout } = useAuthStore();
   const { openPedidoModal } = useUiStore();
+  const { pedidos } = useSelector(state => state.pedido);
 
 
   const mostrarPedido = () => {
@@ -104,8 +105,6 @@ export const ResponsiveDrawer = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const { pedidos } = useSelector(state => state.pedido);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -167,7 +166,7 @@ export const ResponsiveDrawer = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          <Link component={RouterLink} style={{ textDecoration: 'none', fontWeight: 'bold', fontSize: 15 }} variant='h6' color='inherit' to="/Asesores">
+          {user.rol == 'Administrador' ? <Link component={RouterLink} style={{ textDecoration: 'none', fontWeight: 'bold', fontSize: 15 }} variant='h6' color='inherit' to="/Asesores">
             <ListItem key={'Asesores'} disablePadding>
               <ListItemButton
                 sx={{
@@ -183,7 +182,8 @@ export const ResponsiveDrawer = () => {
                 <ListItemText primary={'Asesores'} />
               </ListItemButton>
             </ListItem>
-          </Link>
+          </Link> : null}
+
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Rutas">
             <ListItem key={'Rutas'} disablePadding>
               <ListItemButton sx={{
@@ -248,7 +248,7 @@ export const ResponsiveDrawer = () => {
               </ListItemButton>
             </ListItem>
           </Link>
-          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Viaticos">
+          {/* <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/Viaticos">
             <ListItem key={'Viaticos'} disablePadding>
               <ListItemButton sx={{
                 color: 'primary.main',
@@ -263,10 +263,10 @@ export const ResponsiveDrawer = () => {
                 <ListItemText primary={'Viaticos'} />
               </ListItemButton>
             </ListItem>
-          </Link>
+          </Link> */}
         </List>
         <Divider />
-        <List>
+        {/* <List>
           <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReportePedidos">
             <ListItem key={'Reporte pedidos'} disablePadding>
               <ListItemButton sx={{
@@ -282,8 +282,8 @@ export const ResponsiveDrawer = () => {
                 <ListItemText primary={'Reporte pedidos'} />
               </ListItemButton>
             </ListItem>
-          </Link>
-          <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReporteViaticos">
+          </Link> */}
+        {/* <Link component={RouterLink} style={{ textDecoration: 'none' }} variant='h6' color='inherit' to="/ReporteViaticos">
             <ListItem key={'Reporte viaticos'} disablePadding>
               <ListItemButton sx={{
                 color: 'primary.main',
@@ -298,8 +298,8 @@ export const ResponsiveDrawer = () => {
                 <ListItemText primary={'Reporte viaticos'} />
               </ListItemButton>
             </ListItem>
-          </Link>
-        </List>
+          </Link> */}
+        {/* </List> */}
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

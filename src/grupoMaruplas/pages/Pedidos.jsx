@@ -6,6 +6,7 @@ import { NothingSelectedView } from '../components/NothingSelectedView'
 import {ResponsiveDrawer} from '../components/sidebar'
 import { TableComponent } from '../components/TableComponent'
 import { columnas } from '../data/columnsPedidos'
+import { ModalVerPedidos } from '../views/ModalVerPedido'
 
 export const Pedidos = () => {
 
@@ -30,6 +31,8 @@ export const Pedidos = () => {
 
             {Object.keys(pedidos).length === 0 ? <NothingSelectedView />
                 : <TableComponent columnas={columnas} filas={pedidos} api={api}/>}
+
+            <ModalVerPedidos/>
 
         </Grid>
     )

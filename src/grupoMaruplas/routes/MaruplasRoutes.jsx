@@ -9,8 +9,8 @@ import { ReportePedidos } from "../pages/ReportePedidos"
 import { ReporteViaticos } from "../pages/ReporteViaticos"
 import { MaruplasPage } from "../pages/MaruplasPage"
 
-
 export const MaruplasRoutes = () => {
+
   return (
     <Routes>
         <Route path="/" element={ <MaruplasPage /> } />
