@@ -2,6 +2,7 @@ import { Grid} from '@mui/material'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { usePedidos } from '../../hooks/usePedidos'
+import { useServices } from '../../hooks/UseServices'
 import { NothingSelectedView } from '../components/NothingSelectedView'
 import {ResponsiveDrawer} from '../components/sidebar'
 import { TableComponent } from '../components/TableComponent'
@@ -16,8 +17,11 @@ export const Pedidos = () => {
 
     const { pedidos } = useSelector(state => state.producto);
 
+    const { getProductos } = useServices();
+
     useEffect(() => {
         getPedidos()
+        getProductos()
     }, [])
     
 

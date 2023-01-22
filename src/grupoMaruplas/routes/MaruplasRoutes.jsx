@@ -8,13 +8,16 @@ import { Viaticos } from "../pages/Viaticos"
 import { ReportePedidos } from "../pages/ReportePedidos"
 import { ReporteViaticos } from "../pages/ReporteViaticos"
 import { MaruplasPage } from "../pages/MaruplasPage"
+import { useAuthStore } from "../../hooks/useAuthStore"
 
 export const MaruplasRoutes = () => {
+
+  const { user, startLogout } = useAuthStore();
 
   return (
     <Routes>
         <Route path="/" element={ <MaruplasPage /> } />
-        <Route path="/Asesores" element={ <Asesores /> } />
+        {user.rol == 'Administrador' ? <Route path="/Asesores" element={ <Asesores /> } /> : null}
         <Route path="/Rutas" element={ <Rutas /> } />
         <Route path="/Clientes" element={ <Clientes /> } />
         <Route path="/Productos" element={ <Productos /> } />

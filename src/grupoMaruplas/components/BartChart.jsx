@@ -4,28 +4,15 @@ import { Chart, Bar } from 'react-chartjs-2'
 import { Grid } from '@mui/material';
 import { useUsers } from '../../hooks/useUsers';
 import { useSelector } from 'react-redux';
+import { CheckingAuth } from '../../ui/components/CheckingAuth';
 
-export const BartChart = () => {
-
-    const { getUser } = useUsers();
-
-    const { users, state } = useSelector(state => state.user);
-
-    useEffect(() => {
-      getUser()
-    }, [])
+export const BartChart = ({users}) => {
 
     var labels = [];
 
     var ventas = [];
-    
-    state != "" ? labels = users.map(user => user.name) : labels = [] 
 
-    state != "" ? ventas = users.map(user => user.acumulado) : ventas = [] 
-
-    console.log(state)
-
-    console.log(labels)
+    Object.keys(users).length === 0 ? <CheckingAuth/> : labels = users.map(user => user.name), ventas = users.map(user => user.acumulado) 
 
     const data = {
         labels: labels,

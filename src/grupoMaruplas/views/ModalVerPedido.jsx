@@ -15,7 +15,7 @@ export const ModalVerPedidos = () => {
 
     const { isNow } = useSelector(state => state.ui);
 
-    const Productos = () => {
+    const TraerProductos = () => {
         if (Object.keys(isNow).length != 0) {
             const { Productos, Cliente, Ruta, precioTotal } = isNow;
             return (
@@ -24,8 +24,8 @@ export const ModalVerPedidos = () => {
                     <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='20px' > Ruta: {Ruta} </Typography>
                     <hr/>
                     <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='22px' fontWeight='bold'> Productos </Typography>
-                    
-                    {Productos.map((prod, i) => (<Typography variant='h5' noWrap component='div' textAlign="center" fontSize='20px' > {prod.nombre} (x{prod.cantidad}) </Typography>))}
+                   {console.log(Productos)}
+                    {Productos ? Productos.map((prod, i) => (<Typography  key={i} variant='h5' noWrap component='div' textAlign="center" fontSize='20px' > {prod.nombre} (x{prod.cantidad}) </Typography>)): null} 
                     <hr />
                     <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='18px' fontWeight='bold'> {precioTotal} </Typography>
                 </Grid>
@@ -50,7 +50,7 @@ export const ModalVerPedidos = () => {
             <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Pedido </Typography>
             <hr />
 
-            {Productos()}
+            {TraerProductos()}
         </Modal>
 
     )

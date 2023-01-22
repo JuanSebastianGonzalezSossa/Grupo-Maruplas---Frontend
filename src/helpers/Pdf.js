@@ -1,8 +1,8 @@
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import download from 'downloadjs';
 
 export const createPdf = async ({ Cliente, user, Ruta, Productos, precioTotal }) => {
-    const pdfDoc = await PDFDocument.create()
+    const pdfDoc = await PDFDocument.create();
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
 
     const page = pdfDoc.addPage()
@@ -101,12 +101,12 @@ export const createPdf = async ({ Cliente, user, Ruta, Productos, precioTotal })
             width: jpgDims.width,
             height: jpgDims.height,
         })
-        imgAdd++;
         if (imgAdd % 3 === 0) {
             // Crear una nueva página si se han agregado el número especificado de imágenes por página.
             page2 = pdfDoc.addPage();
             heightPages = 1600;
         }
+        imgAdd++;
     });
 
 

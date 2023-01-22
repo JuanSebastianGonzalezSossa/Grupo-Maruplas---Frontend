@@ -87,6 +87,13 @@ export const usePedidos = () => {
         return result;
     }
 
+    const addProducts = async (prod, ped) => {
+        // Código que utiliza await
+        console.log(prod, ped)
+        const result = await serviceMaruplas.put(`/products/uno/${prod.id}`, { cantidad: prod.cantidad + ped.cantidad });
+        return result;
+    }
+
     const savingPedidos = async (cliente, ruta, total, order) => {
         console.log(cliente.nombres, ruta.nombre, order, total)
         console.log(productos)
@@ -99,12 +106,12 @@ export const usePedidos = () => {
             }))
         })));
 
-    console.log(results);
+        console.log(results);
 
         try {
             // Creando
             const { data } = await serviceMaruplas.post('/pedidos', { Cliente: cliente.nombres, Productos: order, Ruta: ruta.nombre, precioTotal: total });
-            
+
             console.log(order.cantidad, productos.cantidad);
             dispatch(onAddPedidos(data.pedido));
             if (data.ok) {
@@ -125,9 +132,20 @@ export const usePedidos = () => {
 
     }
 
-    const DeletingPedidos = async (values) => {
+    const DeletingPedidos = async ({Productos, id}) => {
+        console.log(Productos)
+        console.log(productos)
+
+        const results = await Promise.all(productos.map((prod => {
+            Productos.map((ped => {
+                prod.id == ped.id
+                    ? addProducts(prod, ped) + dispatch(onUpdateProductos({ ...prod, cantidad: prod.cantidad + ped.cantidad }))
+                    : console.log('No se encontro pedido relacionado al producto')
+            }))
+        })));
+
         try {
-            const { data } = await serviceMaruplas.delete(`/pedidos/${values.id}`);
+            const { data } = await serviceMaruplas.delete(`/pedidos/${id}`);
             console.log(data.pedidos)
             dispatch(onPedidos(data.pedidos));
             if (data.ok) {

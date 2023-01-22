@@ -8,6 +8,14 @@ import { useUsers } from '../../hooks/useUsers'
 
 export const MaruplasPage = () => {
 
+    const { getUser } = useUsers();
+
+    const { users } = useSelector(state => state.user);
+
+    useEffect(() => {
+        getUser()
+      }, [])
+
     return (
         <Grid
             className='animate__animated animate__fadeIn animate__faster'
@@ -20,7 +28,7 @@ export const MaruplasPage = () => {
         >
             <ResponsiveDrawer />
 
-            <BartChart />
+            <BartChart users={users}/>
         </Grid>
     )
 }

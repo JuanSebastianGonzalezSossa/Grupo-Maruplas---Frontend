@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux"
 import Swal from "sweetalert2";
 import { serviceMaruplas } from "../Apis";
-import { onAddNewUser, onUser } from "../store";
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/authSlice";
+import { onClientes, onRutas, onProductos, onPedidos, onUser, onAddNewUser, onpedidos, onTotal, onUpdateNow  } from "../store";
 import { onOpenSuccess, onCloseSuccess } from "../store/ui/uiSlice";
 
 export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector(state => state.auth)
     const { users } = useSelector(state => state.user)
+    
     const dispatch = useDispatch();
 
     const startLogin = async ({ email, password }) => {
@@ -137,10 +138,11 @@ export const useAuthStore = () => {
         if (!token) return dispatch(onLogout());
 
         try {
-            const { data } = await serviceMaruplas.get('auth/renew')
+            const { data } = await serviceMaruplas.get('auth/ren ew')
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onLogin({ name: data.name, uid: data.uid }));
+            console.log(data)
+            dispatch(onLogin({ name: data.name, uid: data.uid, rol: data.rol }));
         } catch (error) {
             localStorage.clear();
             dispatch(onLogout());
@@ -150,6 +152,14 @@ export const useAuthStore = () => {
     const startLogout = () => {
         localStorage.clear();
         dispatch(onLogout());
+        dispatch(onClientes([]));
+        dispatch(onRutas([]));
+        dispatch(onProductos({}));
+        dispatch(onPedidos([]));
+        dispatch(onpedidos([]));
+        dispatch(onUser([]));
+        dispatch(onTotal(0));
+        dispatch(onUpdateNow({}));
     }
 
     //Propiedades
