@@ -138,7 +138,7 @@ export const useAuthStore = () => {
         if (!token) return dispatch(onLogout());
 
         try {
-            const { data } = await serviceMaruplas.get('auth/ren ew')
+            const { data } = await serviceMaruplas.get('auth/renew')
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             console.log(data)

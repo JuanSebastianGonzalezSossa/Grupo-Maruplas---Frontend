@@ -46,7 +46,7 @@ export const BartChart = ({users}) => {
         <Grid xs={12}
             sm={10}
             md={10}
-            lg={12} sx={{ display: 'flex', width: '800px', height: '200px', backgroundColor: 'white', padding: '10px', borderRadius: '10px' }}>
+            lg={12} sx={{ display: 'flex', width: '800px', maxHeight: '500px', backgroundColor: 'white', padding: '10px', borderRadius: '10px' }}>
             <Bar
                 data={data}
             />

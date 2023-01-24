@@ -1,7 +1,7 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import download from 'downloadjs';
 
-export const createPdf = async ({ Cliente, user, Ruta, Productos, precioTotal }) => {
+export const createPdf = async ({ Cliente, user, Ruta, Productos, precioTotal, id }) => {
     const pdfDoc = await PDFDocument.create();
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
 
@@ -95,23 +95,27 @@ export const createPdf = async ({ Cliente, user, Ruta, Productos, precioTotal })
     images.map((image, i) => {
         const jpgDims = image.scale(0.2)
 
-        page2.drawImage(image, {
-            x: 170,
-            y: heightPages - 300 - (i * 13) * fontSize,
-            width: jpgDims.width,
-            height: jpgDims.height,
-        })
-        if (imgAdd % 3 === 0) {
+        imgAdd++;
+
+        if (imgAdd % 4 === 0) {
             // Crear una nueva página si se han agregado el número especificado de imágenes por página.
             page2 = pdfDoc.addPage();
             heightPages = 1600;
         }
-        imgAdd++;
+
+        page2.drawImage(image, {
+            x: 170,
+            y: heightPages - 340 - (i * 13) * fontSize,
+            width: jpgDims.width,
+            height: jpgDims.height,
+        })
+        
+        
     });
 
 
     const pdfBytes = await pdfDoc.save()
 
-    download(pdfBytes, "Pedido de " + Cliente, "application/pdf");
+    download(pdfBytes, "Pedido Nro: "+id+ " Cliente: " + Cliente, "application/pdf");
 
 }

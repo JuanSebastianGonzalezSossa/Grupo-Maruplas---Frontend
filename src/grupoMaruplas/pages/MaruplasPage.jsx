@@ -14,21 +14,19 @@ export const MaruplasPage = () => {
 
     useEffect(() => {
         getUser()
-      }, [])
+    }, [])
 
     return (
         <Grid
             className='animate__animated animate__fadeIn animate__faster'
             container
-            spacing={0}
-            direction="column"
+            direction="row"
             alignItems="center"
             justifyContent="center"
-            sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
+            sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4, mt: 5 }}
         >
             <ResponsiveDrawer />
-
-            <BartChart users={users}/>
+                <BartChart users={users} />
         </Grid>
     )
 }
