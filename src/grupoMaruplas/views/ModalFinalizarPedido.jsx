@@ -119,7 +119,7 @@ export const ModalFinalizarPedido = () => {
                                             key={i}
                                             value={client}
                                         >
-                                            {client.nombres}
+                                            {client.nombres +" "+ client.apellidos}
                                         </MenuItem>
                                     ))}
                                 </Select>

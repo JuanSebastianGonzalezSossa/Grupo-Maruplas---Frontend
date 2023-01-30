@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import { serviceMaruplas } from "../Apis";
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/authSlice";
 import { onClientes, onRutas, onProductos, onPedidos, onUser, onAddNewUser, onpedidos, onTotal, onUpdateNow  } from "../store";
-import { onOpenSuccess, onCloseSuccess } from "../store/ui/uiSlice";
 
 export const useAuthStore = () => {
 
