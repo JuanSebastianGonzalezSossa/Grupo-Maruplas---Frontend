@@ -83,7 +83,7 @@ export const ProductosList = ({ Productos }) => {
                                                     margin: '5px',
                                                     ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
                                                 }} onClick={() => AñadirPedido(prod)}
-                                                disabled={prod.cantidad > 1 ? false : true}
+                                                disabled={prod.cantidad >= 1 ? false : true}
                                                 ><AddShoppingCartIcon sx={{ fontSize: 26 }}> </AddShoppingCartIcon> </IconButton>
                                             <IconButton sx={{
                                                 left: '35%',

@@ -55,7 +55,7 @@ export const ModalEditarCliente = () => {
                                 name='nombres'
                                 label="Nombres *"
                                 type="text"
-                                placeholder='Susana Restrepo'
+                                placeholder='Nombres del cliente'
                                 fullWidth
                                 value={values.nombres}
                                 onChange={handleChange}
@@ -72,7 +72,7 @@ export const ModalEditarCliente = () => {
                                 nombre='apellidos'
                                 label="Apellidos *"
                                 type="text"
-                                placeholder='Medellín'
+                                placeholder='Apellidos del cliente'
                                 fullWidth
                                 value={values.apellidos}
                                 onChange={handleChange}

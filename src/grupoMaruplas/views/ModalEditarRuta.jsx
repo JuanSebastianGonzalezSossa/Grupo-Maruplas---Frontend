@@ -55,7 +55,7 @@ export const ModalEditarRuta = () => {
                                 name='nombre'
                                 label="Nombre *"
                                 type="text"
-                                placeholder='Susana Restrepo'
+                                placeholder='Nombre con el cual identifiques tu ruta'
                                 fullWidth
                                 value={values.nombre}
                                 onChange={handleChange}

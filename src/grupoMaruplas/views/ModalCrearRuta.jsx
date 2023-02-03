@@ -48,7 +48,7 @@ export const ModalCrearRuta = () => {
             overlayClassName="modal-fondo"
             closeTimeoutMS={200}
         >
-            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Regitrar Ruta </Typography>
+            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Registrar Ruta </Typography>
             <hr />
             <form onSubmit={handleSubmit} autoComplete='off' className='animate__animated animate__fadeIn animate__faster'>
                 <Grid container direction='column' justifyContent='center'>

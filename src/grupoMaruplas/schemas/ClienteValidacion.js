@@ -6,5 +6,5 @@ export const ClienteValidacions = yup.object().shape({
     apellidos: yup.string().min(3).required("Requerido"),
     empresa: yup.string().min(3).required("Requerido"),
     celular: yup.number().positive().min(10).integer().required("Requerido"),
-    correo: yup.string().email("Por favor ingresar correo valido").required("Requerido"),
+    correo: yup.string().email("Por favor ingresar correo valido"),
 });

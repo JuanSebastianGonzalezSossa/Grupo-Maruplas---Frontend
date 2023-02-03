@@ -60,7 +60,7 @@ export const ModalCrearCliente = () => {
                                 name='nombres'
                                 label="Nombres *"
                                 type="text"
-                                placeholder='Susana Restrepo'
+                                placeholder='Nombres del cliente'
                                 fullWidth
                                 value={values.nombres}
                                 onChange={handleChange}
@@ -77,7 +77,7 @@ export const ModalCrearCliente = () => {
                                 nombre='apellidos'
                                 label="Apellidos *"
                                 type="text"
-                                placeholder='Medellín'
+                                placeholder='Apellidos del cliente'
                                 fullWidth
                                 value={values.apellidos}
                                 onChange={handleChange}
@@ -94,7 +94,7 @@ export const ModalCrearCliente = () => {
                                 nombre='empresa'
                                 label="Empresa *"
                                 type="text"
-                                placeholder='Medellín'
+                                placeholder='Nombre empresa o cliente'
                                 fullWidth
                                 value={values.empresa}
                                 onChange={handleChange}
@@ -111,7 +111,7 @@ export const ModalCrearCliente = () => {
                                 name='celular'
                                 label="Celular *"
                                 type="number"
-                                placeholder='3001234567'
+                                placeholder='Numero del cliente'
                                 fullWidth
                                 value={values.celular}
                                 onChange={handleChange}

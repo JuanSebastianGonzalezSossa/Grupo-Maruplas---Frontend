@@ -86,10 +86,27 @@ export const createPdf = async ({ Cliente, user, Ruta, Productos, precioTotal, i
     const imagesBuffers = Productos.map(prod => prod.imagenURL)
 
     const images = await Promise.all(imagesBuffers.map(async (imageBuffer) => {
-        var jpgImageBytes = await fetch(imageBuffer).then((res) => res.arrayBuffer())
-        return await pdfDoc.embedJpg(jpgImageBytes);
-    }));
-
+        var imageBytes, imageType;
+      
+        // Determina el tipo de imagen (JPG o PNG)
+        if (imageBuffer.endsWith('.jpg') || imageBuffer.endsWith('.JPG')) {
+          imageType = 'jpg';
+        } else if (imageBuffer.endsWith('.png') || imageBuffer.endsWith('.PNG')) {
+          imageType = 'png';
+        } else {
+          throw new Error(`Unsupported image format: ${imageBuffer}`);
+        }
+      
+        // Obtiene los bytes de la imagen
+        imageBytes = await fetch(imageBuffer).then((res) => res.arrayBuffer());
+      
+        // Devuelve la imagen incrustada en el documento PDF
+        if (imageType === 'jpg') {
+          return await pdfDoc.embedJpg(imageBytes);
+        } else if (imageType === 'png') {
+          return await pdfDoc.embedPng(imageBytes);
+        }
+      }));
     var imgAdd = 0;
     var heightPages = 841.89;
     images.map((image, i) => {
