@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const serviceMaruplas = axios.create({
-    // baseURL: 'https://grupomaruplasbackend.herokuapp.com/api'
-    baseURL: 'http://localhost:4000/api'
+    baseURL: 'https://grupomaruplasbackend.herokuapp.com/api'
+    // baseURL: 'http://localhost:4000/api'
 });
 
 //Configuracion de los intersectores
